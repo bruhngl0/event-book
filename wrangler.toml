@@ -1,0 +1,7 @@
+name = "event-book"
+main = "src/index.ts"
+compatibility_date = "2024-12-27"
+
+[vars]
+DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMDFKVlZBQ1lZNkpCQkpYNFNKM1dUQjg4NTUiLCJ0ZW5hbnRfaWQiOiI3OTMzNzBjYzQ2NzhjZDkwMWZjNzE3ZjEwYjRmM2JhYjk2NWVjMjVjMjY0NDgyNWE1ZmFlYThjMzAyZTM5ODRkIiwiaW50ZXJuYWxfc2VjcmV0IjoiYTNmNGY3OGMtMDY2OC00ZDdkLThiYzctZThkMTU1OGQ3YTgzIn0.8ATm08U4dXHMru3YjAUI0tQFo5MnOjOhDr_7m-5v1Jc"
+JWT_SECRET = "life0sucks"
