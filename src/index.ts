@@ -4,6 +4,8 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { cors } from "hono/cors";
 import authMiddleware from "./middlewares/auth";
 import userHandler from "./api/handlers/userHandler";
+import eventHandler from "./api/handlers/eventHandler";
+import bookingHandler from "./api/handlers/bookingHandler";
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string;
@@ -12,6 +14,8 @@ const app = new Hono<{
 
 app.use("/*", cors());
 app.use("api/v1/user/protected/*", authMiddleware);
+app.use("api/v1/event/protected/*", authMiddleware);
+app.use("api/v1/booking/protected/*", authMiddleware);
 
 export const getPrisma = (database_url: string) => {
   const prisma = new PrismaClient({
@@ -27,5 +31,7 @@ app.get("/", (c) => {
 });
 
 app.route("/api/v1/user", userHandler);
+app.route("/api/v1/event", eventHandler);
+app.route("/api/v1/booking", bookingHandler);
 
 export default app;
