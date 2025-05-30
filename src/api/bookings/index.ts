@@ -21,9 +21,11 @@ export const bookEvent = async (c: Context) => {
     return c.json({ message: "userId doesnt exist" });
   }
 
+  const sanitizedUserId = userId.trim();
+
   try {
     const payload: any = {
-      userId,
+      userId: sanitizedUserId,
       eventId: sanitizedEventId,
       status: "PENDING",
     };

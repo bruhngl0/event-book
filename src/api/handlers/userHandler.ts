@@ -1,4 +1,11 @@
-import { createUser, deleteUser, getUsers, updateUser, signIn } from "../users";
+import {
+  createUser,
+  deleteUser,
+  getUsers,
+  updateUser,
+  signIn,
+  getUserToken,
+} from "../users";
 import { Hono } from "hono";
 import { Context } from "hono";
 
@@ -39,4 +46,11 @@ userHandler.all("/protected/:id", async (c: Context) => {
   return c.json({ error: "Method not Allowed" });
 });
 
+userHandler.all("/me", async (c: Context) => {
+  const method = c.req.method;
+  if (method === "GET") {
+    return getUserToken(c);
+  }
+  return c.json({ error: "Method not Allowed" });
+});
 export default userHandler;

@@ -96,6 +96,15 @@ export const postEvent = async (c: Context) => {
 export const getEventById = async (c: Context) => {
   const prisma = getPrisma(c.env.DATABASE_URL);
   const eventId = c.req.param("eventId");
+  const userId = c.get("user");
+
+  if (!userId) {
+    return c.json(
+      { message: "user-id not extracted from token from cookies-jwt-auth" },
+      404,
+    );
+  }
+  console.log(userId);
 
   if (!eventId) {
     return c.json(

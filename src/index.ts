@@ -12,10 +12,30 @@ const app = new Hono<{
   };
 }>();
 
-app.use("/*", cors());
+app.use(
+  "/*",
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173", // Vite dev server
+      //     'https://yourdomain.com',
+      //   'https://www.yourdomain.com'
+    ],
+    allowHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Cookie",
+    ],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    credentials: true, // Enable credentials for cookies
+    maxAge: 600,
+  }),
+);
 app.use("api/v1/user/protected/*", authMiddleware);
 app.use("api/v1/event/protected/*", authMiddleware);
 app.use("api/v1/booking/protected/*", authMiddleware);
+app.use("api/v1/club/protected/*", authMiddleware);
 
 export const getPrisma = (database_url: string) => {
   const prisma = new PrismaClient({

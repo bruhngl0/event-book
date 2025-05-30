@@ -1,3 +1,4 @@
+import { useId } from "hono/jsx";
 import { z } from "zod/v4";
 
 export const createUserSchema = z.object({
@@ -26,14 +27,23 @@ export const createEvent = z.object({
   price: z.number(),
 });
 
+export const PaymentStatusEnum = z.enum(["PENDING", "SUCCESS", "FAILED"]);
+
 export const bookingEvent = z.object({
   eventId: z.string(),
+  userId: z.string(),
+  status: PaymentStatusEnum.optional().default("PENDING"),
+});
+
+export const createClub = z.object({
+  name: z.string(),
+  members: z.array(z.any()).optional(),
 });
 
 export type userSchemaInput = z.infer<typeof createUserSchema>;
 export type updateSchema = z.infer<typeof createUserSchema>;
 export type signIn = z.infer<typeof userSignIn>;
 export type addEvent = z.infer<typeof createEvent>;
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWI3MmY4ZHkwMDAxNWIwd3dsbjN3ZXZoIiwiZXhwIjoxNzUwOTc1NTQ5LCJpYXQiOjE3NDgzODM1NDl9.IUibwZnG2gK_QR-Ie3dm3xBeAsEHHDTVkt7P19oyWck
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzJKdWIiOiJjbWI3MnUxdnowMDAzNWIwdzhrNjZkYjJqIiwiZXhwIjoxNzUwOTc2MjQwLCJpYXQiOjE3NDgzODQyNDB9.F6xXW--dYZ1z4WKuWx26Vo0SphNmcSRFVvr6V4u2ZB8
+export type addbooking = z.infer<typeof bookingEvent>;
+export type addClub = z.infer<typeof createClub>;
+export type PaymentStatus = z.infer<typeof PaymentStatusEnum>;

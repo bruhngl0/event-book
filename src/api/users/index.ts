@@ -2,7 +2,8 @@ import { Context } from "hono";
 import { getPrisma } from "../../index";
 import { createUserSchema, updateUserSchema, userSignIn } from "../../types";
 import bcrypt from "bcryptjs";
-import { sign } from "hono/jwt";
+import { sign, verify } from "hono/jwt";
+import { HTTPException } from "hono/http-exception";
 
 //GET ALL USERS(PRIVATE ROUTE)
 export const getUsers = async (c: Context) => {
@@ -149,7 +150,7 @@ export const signIn = async (c: Context) => {
       "Path=/",
       `Max-Age=${JWT_EXPIRY_SECONDS}`,
       "Secure",
-      "SameSite=Strict",
+      "SameSite=none",
     ].join("; ");
 
     c.header("Set-Cookie", cookieOptions);
@@ -216,5 +217,38 @@ export const deleteUser = async (c: Context) => {
   } catch (error: unknown) {
     console.error("Error deleting user");
     return c.json({ error: "failed to delete user" }, 500);
+  }
+};
+
+export const getUserToken = async (c: Context) => {
+  const cookieHeader = c.req.header("Cookie");
+  const token = cookieHeader?.match(/token=([^;]+)/)?.[1];
+
+  if (!token) {
+    throw new HTTPException(401, { message: "Unauthorized: No token found" });
+  }
+
+  try {
+    const decoded = (await verify(token, c.env.JWT_SECRET)) as { sub: string }; // `sub` is userId
+
+    const prisma = getPrisma(c.env.DATABASE_URL);
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.sub },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+      },
+    });
+
+    if (!user) {
+      throw new HTTPException(404, { message: "User not found" });
+    }
+
+    return c.json({ authenticated: true, user });
+  } catch (err) {
+    console.error(err);
+    throw new HTTPException(401, { message: "Unauthorized: Invalid token" });
   }
 };
