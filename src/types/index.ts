@@ -33,6 +33,8 @@ export const bookingEvent = z.object({
   eventId: z.string(),
   userId: z.string(),
   status: PaymentStatusEnum.optional().default("PENDING"),
+  instagram: z.string().trim().optional(),
+  linkedIn: z.string().trim().optional(),
 });
 
 export const createClub = z.object({

@@ -4573,6 +4573,8 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     eventId: string | null
+    instagram: string | null
+    linkedIn: string | null
     status: $Enums.PaymentStatus | null
     createdAt: Date | null
   }
@@ -4581,6 +4583,8 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     eventId: string | null
+    instagram: string | null
+    linkedIn: string | null
     status: $Enums.PaymentStatus | null
     createdAt: Date | null
   }
@@ -4589,6 +4593,8 @@ export namespace Prisma {
     id: number
     userId: number
     eventId: number
+    instagram: number
+    linkedIn: number
     status: number
     createdAt: number
     _all: number
@@ -4599,6 +4605,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     eventId?: true
+    instagram?: true
+    linkedIn?: true
     status?: true
     createdAt?: true
   }
@@ -4607,6 +4615,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     eventId?: true
+    instagram?: true
+    linkedIn?: true
     status?: true
     createdAt?: true
   }
@@ -4615,6 +4625,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     eventId?: true
+    instagram?: true
+    linkedIn?: true
     status?: true
     createdAt?: true
     _all?: true
@@ -4696,6 +4708,8 @@ export namespace Prisma {
     id: string
     userId: string
     eventId: string
+    instagram: string | null
+    linkedIn: string | null
     status: $Enums.PaymentStatus
     createdAt: Date
     _count: BookingCountAggregateOutputType | null
@@ -4721,6 +4735,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     eventId?: boolean
+    instagram?: boolean
+    linkedIn?: boolean
     status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4731,6 +4747,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     eventId?: boolean
+    instagram?: boolean
+    linkedIn?: boolean
     status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4741,6 +4759,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     eventId?: boolean
+    instagram?: boolean
+    linkedIn?: boolean
     status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4751,11 +4771,13 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     eventId?: boolean
+    instagram?: boolean
+    linkedIn?: boolean
     status?: boolean
     createdAt?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "status" | "createdAt", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "instagram" | "linkedIn" | "status" | "createdAt", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     event?: boolean | EventDefaultArgs<ExtArgs>
@@ -4779,6 +4801,8 @@ export namespace Prisma {
       id: string
       userId: string
       eventId: string
+      instagram: string | null
+      linkedIn: string | null
       status: $Enums.PaymentStatus
       createdAt: Date
     }, ExtArgs["result"]["booking"]>
@@ -5209,6 +5233,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Booking", 'String'>
     readonly userId: FieldRef<"Booking", 'String'>
     readonly eventId: FieldRef<"Booking", 'String'>
+    readonly instagram: FieldRef<"Booking", 'String'>
+    readonly linkedIn: FieldRef<"Booking", 'String'>
     readonly status: FieldRef<"Booking", 'PaymentStatus'>
     readonly createdAt: FieldRef<"Booking", 'DateTime'>
   }
@@ -5678,6 +5704,8 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     eventId: 'eventId',
+    instagram: 'instagram',
+    linkedIn: 'linkedIn',
     status: 'status',
     createdAt: 'createdAt'
   };
@@ -5974,6 +6002,8 @@ export namespace Prisma {
     id?: StringFilter<"Booking"> | string
     userId?: StringFilter<"Booking"> | string
     eventId?: StringFilter<"Booking"> | string
+    instagram?: StringNullableFilter<"Booking"> | string | null
+    linkedIn?: StringNullableFilter<"Booking"> | string | null
     status?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5984,6 +6014,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
+    instagram?: SortOrderInput | SortOrder
+    linkedIn?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -5997,6 +6029,8 @@ export namespace Prisma {
     NOT?: BookingWhereInput | BookingWhereInput[]
     userId?: StringFilter<"Booking"> | string
     eventId?: StringFilter<"Booking"> | string
+    instagram?: StringNullableFilter<"Booking"> | string | null
+    linkedIn?: StringNullableFilter<"Booking"> | string | null
     status?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
     createdAt?: DateTimeFilter<"Booking"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -6007,6 +6041,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
+    instagram?: SortOrderInput | SortOrder
+    linkedIn?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     _count?: BookingCountOrderByAggregateInput
@@ -6021,6 +6057,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Booking"> | string
     userId?: StringWithAggregatesFilter<"Booking"> | string
     eventId?: StringWithAggregatesFilter<"Booking"> | string
+    instagram?: StringNullableWithAggregatesFilter<"Booking"> | string | null
+    linkedIn?: StringNullableWithAggregatesFilter<"Booking"> | string | null
     status?: EnumPaymentStatusWithAggregatesFilter<"Booking"> | $Enums.PaymentStatus
     createdAt?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
   }
@@ -6220,6 +6258,8 @@ export namespace Prisma {
 
   export type BookingCreateInput = {
     id?: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
@@ -6230,12 +6270,16 @@ export namespace Prisma {
     id?: string
     userId: string
     eventId: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
   }
 
   export type BookingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
@@ -6246,6 +6290,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6254,12 +6300,16 @@ export namespace Prisma {
     id?: string
     userId: string
     eventId: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
   }
 
   export type BookingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6268,6 +6318,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6527,6 +6579,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
+    instagram?: SortOrder
+    linkedIn?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
   }
@@ -6535,6 +6589,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
+    instagram?: SortOrder
+    linkedIn?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
   }
@@ -6543,6 +6599,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
+    instagram?: SortOrder
+    linkedIn?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
   }
@@ -6921,6 +6979,8 @@ export namespace Prisma {
 
   export type BookingCreateWithoutUserInput = {
     id?: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     event: EventCreateNestedOneWithoutBookingsInput
@@ -6929,6 +6989,8 @@ export namespace Prisma {
   export type BookingUncheckedCreateWithoutUserInput = {
     id?: string
     eventId: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
   }
@@ -6987,6 +7049,8 @@ export namespace Prisma {
     id?: StringFilter<"Booking"> | string
     userId?: StringFilter<"Booking"> | string
     eventId?: StringFilter<"Booking"> | string
+    instagram?: StringNullableFilter<"Booking"> | string | null
+    linkedIn?: StringNullableFilter<"Booking"> | string | null
     status?: EnumPaymentStatusFilter<"Booking"> | $Enums.PaymentStatus
     createdAt?: DateTimeFilter<"Booking"> | Date | string
   }
@@ -7055,6 +7119,8 @@ export namespace Prisma {
 
   export type BookingCreateWithoutEventInput = {
     id?: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutBookingsInput
@@ -7063,6 +7129,8 @@ export namespace Prisma {
   export type BookingUncheckedCreateWithoutEventInput = {
     id?: string
     userId: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
   }
@@ -7212,12 +7280,16 @@ export namespace Prisma {
   export type BookingCreateManyUserInput = {
     id?: string
     eventId: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
   }
 
   export type BookingUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: EventUpdateOneRequiredWithoutBookingsNestedInput
@@ -7226,6 +7298,8 @@ export namespace Prisma {
   export type BookingUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7233,6 +7307,8 @@ export namespace Prisma {
   export type BookingUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7282,12 +7358,16 @@ export namespace Prisma {
   export type BookingCreateManyEventInput = {
     id?: string
     userId: string
+    instagram?: string | null
+    linkedIn?: string | null
     status?: $Enums.PaymentStatus
     createdAt?: Date | string
   }
 
   export type BookingUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
@@ -7296,6 +7376,8 @@ export namespace Prisma {
   export type BookingUncheckedUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7303,6 +7385,8 @@ export namespace Prisma {
   export type BookingUncheckedUpdateManyWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    instagram?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedIn?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

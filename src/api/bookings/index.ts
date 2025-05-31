@@ -14,8 +14,11 @@ export const bookEvent = async (c: Context) => {
     return c.json({ message: parsed.error.message }, 400);
   }
 
-  const { eventId } = parsed.data;
+  const { eventId, instagram, linkedIn } = parsed.data;
   const sanitizedEventId = eventId.trim();
+  const sanitizedInstagram = instagram?.trim();
+  const sanitizedLinkedIn = linkedIn?.trim();
+
   const userId = c.get("user");
   if (!userId) {
     return c.json({ message: "userId doesnt exist" });
@@ -29,6 +32,9 @@ export const bookEvent = async (c: Context) => {
       eventId: sanitizedEventId,
       status: "PENDING",
     };
+
+    if (sanitizedInstagram) payload.instagram = sanitizedInstagram;
+    if (sanitizedLinkedIn) payload.linkedIn = sanitizedLinkedIn;
 
     const alreadyBooked = await prisma.booking.findFirst({
       where: { userId, eventId },

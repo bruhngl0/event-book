@@ -150,6 +150,8 @@ exports.Prisma.BookingScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   eventId: 'eventId',
+  instagram: 'instagram',
+  linkedIn: 'linkedIn',
   status: 'status',
   createdAt: 'createdAt'
 };

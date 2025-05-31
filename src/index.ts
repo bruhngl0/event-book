@@ -18,7 +18,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:5173", // Vite dev server
-      //     'https://yourdomain.com',
+      "https://social-dining.vercel.app",
       //   'https://www.yourdomain.com'
     ],
     allowHeaders: [

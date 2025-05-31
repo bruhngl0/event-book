@@ -44,6 +44,8 @@ model Booking {
   userId    String
   event     Event         @relation(fields: [eventId], references: [id])
   eventId   String
+  instagram String?
+  linkedIn  String?
   status    PaymentStatus @default(PENDING)
   createdAt DateTime      @default(now())
 }
