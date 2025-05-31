@@ -5,7 +5,7 @@ import { bookEvent, getAllBookings } from "../bookings";
 
 const bookingHandler = new Hono();
 
-bookingHandler.all("/protected/", async (c: Context) => {
+bookingHandler.all("/protected/book", async (c: Context) => {
   const method = c.req.method;
   if (method === "GET") {
     return getAllBookings(c);

@@ -24,6 +24,9 @@ export const createUser = async (c: Context) => {
   const JWT_EXPIRY_DAYS = 30;
   const JWT_EXPIRY_SECONDS = 60 * 60 * 24 * JWT_EXPIRY_DAYS;
   const BCRYPT_ROUNDS = 12;
+  const expiryDate = new Date(
+    Date.now() + JWT_EXPIRY_SECONDS * 1000,
+  ).toUTCString();
 
   try {
     const body = await c.req.json();
@@ -77,7 +80,8 @@ export const createUser = async (c: Context) => {
       "Path=/",
       `Max-Age=${JWT_EXPIRY_SECONDS}`,
       "Secure",
-      "SameSite=Strict",
+      "SameSite=none",
+      `Expires = ${expiryDate}`,
     ].join("; ");
 
     c.header("Set-Cookie", cookieOptions);
@@ -100,6 +104,9 @@ export const signIn = async (c: Context) => {
   const JWT_EXPIRY_DAYS = 30;
   const JWT_EXPIRY_SECONDS = 60 * 60 * 24 * JWT_EXPIRY_DAYS;
   const BCRYPT_ROUNDS = 12;
+  const expiryDate = new Date(
+    Date.now() + JWT_EXPIRY_SECONDS * 1000,
+  ).toUTCString();
 
   const body = await c.req.json();
   const parsed = userSignIn.safeParse(body);
@@ -151,6 +158,7 @@ export const signIn = async (c: Context) => {
       `Max-Age=${JWT_EXPIRY_SECONDS}`,
       "Secure",
       "SameSite=none",
+      `Expires=${expiryDate}`,
     ].join("; ");
 
     c.header("Set-Cookie", cookieOptions);
