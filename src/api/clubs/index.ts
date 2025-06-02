@@ -2,6 +2,20 @@ import { getPrisma } from "../../index";
 import { Context } from "hono";
 import { createClub } from "../../types";
 
+//GET ALL CLUBS -- //
+export const getClubs = async (c: Context) => {
+  const prisma = getPrisma(c.env.DATABASE_URL);
+  try {
+    const getAllClubs = await prisma.club.findMany({});
+    return c.json({ message: "listed all clubs", getAllClubs }, 201);
+  } catch (error) {
+    console.error({ message: "failed to get all clubs" }, 401);
+    return c.json({ message: "falied to get all clubs" }, 400);
+  }
+};
+
+//CREATE A CLUB -- //
+
 export const addClubs = async (c: Context) => {
   const prisma = getPrisma(c.env.DATABASE_URL);
   const body = await c.req.json();
@@ -25,6 +39,7 @@ export const addClubs = async (c: Context) => {
   }
 };
 
+// JOIN A CLUB --- //
 export const joinClub = async (c: Context) => {
   const prisma = getPrisma(c.env.DATABASE_URL);
   const userId = c.get("user");

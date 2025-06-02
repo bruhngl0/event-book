@@ -1,4 +1,4 @@
-import { addClubs, joinClub } from "../clubs";
+import { addClubs, getClubs, joinClub } from "../clubs";
 import { Hono } from "hono";
 import { Context } from "hono";
 
@@ -6,6 +6,9 @@ const clubHandler = new Hono();
 
 clubHandler.all("/", async (c: Context) => {
   const method = c.req.method;
+  if (method === "GET") {
+    return getClubs(c);
+  }
   if (method === "POST") {
     return addClubs(c);
   }
