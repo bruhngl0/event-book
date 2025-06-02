@@ -23,6 +23,7 @@ export const createEvent = z.object({
   title: z.string(),
   description: z.string().optional(),
   location: z.string(),
+  thumbnail: z.string().optional(),
   date: z.preprocess((val) => new Date(val as string), z.date()),
   price: z.number(),
 });

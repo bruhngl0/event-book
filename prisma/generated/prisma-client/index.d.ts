@@ -3455,6 +3455,7 @@ export namespace Prisma {
     description: string | null
     location: string | null
     date: Date | null
+    thumbnail: string | null
     price: number | null
     createdAt: Date | null
   }
@@ -3465,6 +3466,7 @@ export namespace Prisma {
     description: string | null
     location: string | null
     date: Date | null
+    thumbnail: string | null
     price: number | null
     createdAt: Date | null
   }
@@ -3475,6 +3477,7 @@ export namespace Prisma {
     description: number
     location: number
     date: number
+    thumbnail: number
     price: number
     createdAt: number
     _all: number
@@ -3495,6 +3498,7 @@ export namespace Prisma {
     description?: true
     location?: true
     date?: true
+    thumbnail?: true
     price?: true
     createdAt?: true
   }
@@ -3505,6 +3509,7 @@ export namespace Prisma {
     description?: true
     location?: true
     date?: true
+    thumbnail?: true
     price?: true
     createdAt?: true
   }
@@ -3515,6 +3520,7 @@ export namespace Prisma {
     description?: true
     location?: true
     date?: true
+    thumbnail?: true
     price?: true
     createdAt?: true
     _all?: true
@@ -3612,6 +3618,7 @@ export namespace Prisma {
     description: string | null
     location: string
     date: Date
+    thumbnail: string | null
     price: number
     createdAt: Date
     _count: EventCountAggregateOutputType | null
@@ -3641,6 +3648,7 @@ export namespace Prisma {
     description?: boolean
     location?: boolean
     date?: boolean
+    thumbnail?: boolean
     price?: boolean
     createdAt?: boolean
     bookings?: boolean | Event$bookingsArgs<ExtArgs>
@@ -3653,6 +3661,7 @@ export namespace Prisma {
     description?: boolean
     location?: boolean
     date?: boolean
+    thumbnail?: boolean
     price?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["event"]>
@@ -3663,6 +3672,7 @@ export namespace Prisma {
     description?: boolean
     location?: boolean
     date?: boolean
+    thumbnail?: boolean
     price?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["event"]>
@@ -3673,11 +3683,12 @@ export namespace Prisma {
     description?: boolean
     location?: boolean
     date?: boolean
+    thumbnail?: boolean
     price?: boolean
     createdAt?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "location" | "date" | "price" | "createdAt", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "location" | "date" | "thumbnail" | "price" | "createdAt", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bookings?: boolean | Event$bookingsArgs<ExtArgs>
     _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
@@ -3696,6 +3707,7 @@ export namespace Prisma {
       description: string | null
       location: string
       date: Date
+      thumbnail: string | null
       price: number
       createdAt: Date
     }, ExtArgs["result"]["event"]>
@@ -4127,6 +4139,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Event", 'String'>
     readonly location: FieldRef<"Event", 'String'>
     readonly date: FieldRef<"Event", 'DateTime'>
+    readonly thumbnail: FieldRef<"Event", 'String'>
     readonly price: FieldRef<"Event", 'Float'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
   }
@@ -5693,6 +5706,7 @@ export namespace Prisma {
     description: 'description',
     location: 'location',
     date: 'date',
+    thumbnail: 'thumbnail',
     price: 'price',
     createdAt: 'createdAt'
   };
@@ -5937,6 +5951,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Event"> | string | null
     location?: StringFilter<"Event"> | string
     date?: DateTimeFilter<"Event"> | Date | string
+    thumbnail?: StringNullableFilter<"Event"> | string | null
     price?: FloatFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
     bookings?: BookingListRelationFilter
@@ -5948,6 +5963,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     location?: SortOrder
     date?: SortOrder
+    thumbnail?: SortOrderInput | SortOrder
     price?: SortOrder
     createdAt?: SortOrder
     bookings?: BookingOrderByRelationAggregateInput
@@ -5962,6 +5978,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Event"> | string | null
     location?: StringFilter<"Event"> | string
     date?: DateTimeFilter<"Event"> | Date | string
+    thumbnail?: StringNullableFilter<"Event"> | string | null
     price?: FloatFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
     bookings?: BookingListRelationFilter
@@ -5973,6 +5990,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     location?: SortOrder
     date?: SortOrder
+    thumbnail?: SortOrderInput | SortOrder
     price?: SortOrder
     createdAt?: SortOrder
     _count?: EventCountOrderByAggregateInput
@@ -5991,6 +6009,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Event"> | string | null
     location?: StringWithAggregatesFilter<"Event"> | string
     date?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    thumbnail?: StringNullableWithAggregatesFilter<"Event"> | string | null
     price?: FloatWithAggregatesFilter<"Event"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
   }
@@ -6188,6 +6207,7 @@ export namespace Prisma {
     description?: string | null
     location: string
     date: Date | string
+    thumbnail?: string | null
     price: number
     createdAt?: Date | string
     bookings?: BookingCreateNestedManyWithoutEventInput
@@ -6199,6 +6219,7 @@ export namespace Prisma {
     description?: string | null
     location: string
     date: Date | string
+    thumbnail?: string | null
     price: number
     createdAt?: Date | string
     bookings?: BookingUncheckedCreateNestedManyWithoutEventInput
@@ -6210,6 +6231,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUpdateManyWithoutEventNestedInput
@@ -6221,6 +6243,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUncheckedUpdateManyWithoutEventNestedInput
@@ -6232,6 +6255,7 @@ export namespace Prisma {
     description?: string | null
     location: string
     date: Date | string
+    thumbnail?: string | null
     price: number
     createdAt?: Date | string
   }
@@ -6242,6 +6266,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6252,6 +6277,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6510,6 +6536,7 @@ export namespace Prisma {
     description?: SortOrder
     location?: SortOrder
     date?: SortOrder
+    thumbnail?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
   }
@@ -6524,6 +6551,7 @@ export namespace Prisma {
     description?: SortOrder
     location?: SortOrder
     date?: SortOrder
+    thumbnail?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
   }
@@ -6534,6 +6562,7 @@ export namespace Prisma {
     description?: SortOrder
     location?: SortOrder
     date?: SortOrder
+    thumbnail?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
   }
@@ -7194,6 +7223,7 @@ export namespace Prisma {
     description?: string | null
     location: string
     date: Date | string
+    thumbnail?: string | null
     price: number
     createdAt?: Date | string
   }
@@ -7204,6 +7234,7 @@ export namespace Prisma {
     description?: string | null
     location: string
     date: Date | string
+    thumbnail?: string | null
     price: number
     createdAt?: Date | string
   }
@@ -7263,6 +7294,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7273,6 +7305,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

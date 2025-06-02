@@ -27,10 +27,13 @@ export const postEvent = async (c: Context) => {
       return c.json({ error: parsed.error.message }, 400);
     }
 
-    const { title, description, location, date, price } = parsed.data;
+    const { title, description, location, date, price, thumbnail } =
+      parsed.data;
+
     const sanitizedTitle = title.toLowerCase().trim();
     const sanitizedDescription = description?.trim();
     const sanitizedLocation = location.trim();
+    const sanitizedThumbnail = thumbnail?.trim();
 
     if (!sanitizedTitle || !sanitizedLocation) {
       return c.json(
@@ -80,6 +83,7 @@ export const postEvent = async (c: Context) => {
       date: eventDate,
       price: sanitizedPrice,
       ...(sanitizedDescription && { description: sanitizedDescription }),
+      ...(sanitizedThumbnail && { thumbnail: sanitizedThumbnail }),
     };
 
     const eventData = await prisma.event.create({

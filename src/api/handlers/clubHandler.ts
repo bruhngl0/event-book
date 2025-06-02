@@ -21,7 +21,7 @@ clubHandler.all("/protected/:clubId", async (c: Context) => {
     return addClubs(c);
   }
 
-  if (method === "UPDATE") {
+  if (method === "PUT") {
     return joinClub(c);
   }
 });
