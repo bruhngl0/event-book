@@ -81,7 +81,7 @@ export const createUser = async (c: Context) => {
       `Max-Age=${JWT_EXPIRY_SECONDS}`,
       "Secure",
       "SameSite=none",
-      `Expires = ${expiryDate}`,
+      `Expires=${expiryDate}`,
     ].join("; ");
 
     c.header("Set-Cookie", cookieOptions);

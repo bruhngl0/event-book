@@ -20,7 +20,35 @@ export const addClubs = async (c: Context) => {
 
     return c.json({ message: addedClub, addedClub }, 200);
   } catch (error: unknown) {
-    console.error({ message: "failed-to-add-club" }, 400);
+    console.error({ message: "failed-to-create-club" }, 400);
     return c.json({ error: "failed-to-create-club" }, 400);
+  }
+};
+
+export const joinClub = async (c: Context) => {
+  const prisma = getPrisma(c.env.DATABASE_URL);
+  const userId = c.get("user");
+  const clubId = c.req.param("clubId");
+
+  if (!userId) {
+    return c.json({ message: "please login/signup" });
+  }
+  try {
+    const club = await prisma.club.findUnique({
+      where: { id: clubId },
+    });
+    if (!club) {
+      return c.json({ error: "club-doesnt-exist-in-database" }, 404);
+    }
+
+    const userData = await prisma.user.update({
+      where: { id: userId },
+      data: { clubId: clubId },
+    });
+
+    return c.json({ message: "club-joined-successfully", userData }, 200);
+  } catch (error: unknown) {
+    console.error({ error: "user-failed-to-join-club" }, 401);
+    return c.json({ message: "user-failed-to-join-club" }, 401);
   }
 };
