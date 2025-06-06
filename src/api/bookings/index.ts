@@ -24,7 +24,7 @@ export const bookEvent = async (c: Context) => {
     return c.json({ message: "userId doesnt exist" });
   }
 
-  const sanitizedUserId = userId.trim();
+  const sanitizedUserId = userId.id;
 
   try {
     const payload: any = {
@@ -37,7 +37,7 @@ export const bookEvent = async (c: Context) => {
     if (sanitizedLinkedIn) payload.linkedIn = sanitizedLinkedIn;
 
     const alreadyBooked = await prisma.booking.findFirst({
-      where: { userId, eventId },
+      where: { userId: sanitizedUserId, eventId: sanitizedEventId },
     });
 
     if (alreadyBooked) {

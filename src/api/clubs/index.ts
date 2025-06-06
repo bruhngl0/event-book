@@ -48,6 +48,8 @@ export const joinClub = async (c: Context) => {
   if (!userId) {
     return c.json({ message: "please login/signup" });
   }
+
+  console.log(userId.id);
   try {
     const club = await prisma.club.findUnique({
       where: { id: clubId },
@@ -57,8 +59,8 @@ export const joinClub = async (c: Context) => {
     }
 
     const userData = await prisma.user.update({
-      where: { id: userId },
-      data: { clubId: clubId },
+      where: { id: userId.id },
+      data: { clubId: club.id },
     });
 
     return c.json({ message: "club-joined-successfully", userData }, 200);

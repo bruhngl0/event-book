@@ -1,43 +1,29 @@
 import { verify } from "hono/jwt";
 import { Context, Next } from "hono";
-import { getCookie } from "hono/cookie";
 
 const authMiddleware = async (c: Context, next: Next) => {
-  const token = getCookie(c, "token");
+  const authHeader = c.req.header("Authorization");
   const secretKey = c.env.JWT_SECRET;
 
-  if (!token) {
-    console.error({
-      message:
-        "middleware-jwt-token not reaching to backend from frontend-cookie",
-    });
-    return c.json(
-      {
-        error:
-          "middleware-jwt-token not reaching to backend from frontend-cookie",
-      },
-      404,
-    );
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return c.json({ error: "Missing or invalid Authorization header" }, 401);
   }
-  try {
-    const decodedPayload = await verify(token, secretKey);
-    console.log(decodedPayload.sub);
 
-    c.set("user", decodedPayload.sub);
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const payload = await verify(token, secretKey);
+    if (!payload) {
+      return c.json({ error: "Invalid or expired token" }, 403);
+    }
+
+    // Attach user info to context
+    c.set("user", payload); // This way you can access full payload
 
     return next();
-  } catch {
-    console.error({
-      message:
-        "authentication-middleware-failed-token-check-for-protected-routes",
-    });
-    return c.json(
-      {
-        error:
-          "authentication-middleware-failed-token-check-for-protected-routes",
-      },
-      404,
-    );
+  } catch (err) {
+    console.error("JWT verification failed:", err);
+    return c.json({ error: "Token verification failed" }, 401);
   }
 };
 

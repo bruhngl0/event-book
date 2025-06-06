@@ -24,9 +24,6 @@ export const createUser = async (c: Context) => {
   const JWT_EXPIRY_DAYS = 30;
   const JWT_EXPIRY_SECONDS = 60 * 60 * 24 * JWT_EXPIRY_DAYS;
   const BCRYPT_ROUNDS = 12;
-  const expiryDate = new Date(
-    Date.now() + JWT_EXPIRY_SECONDS * 1000,
-  ).toUTCString();
 
   try {
     const body = await c.req.json();
@@ -56,11 +53,7 @@ export const createUser = async (c: Context) => {
       },
     });
     //generate token from the user.id and send it to the frontend headers-cookie-set-- for sso
-    const payload = {
-      sub: user.id,
-      exp: Math.floor(Date.now() / 1000) + JWT_EXPIRY_SECONDS,
-      iat: Math.floor(Date.now() / 1000), // Issued at time
-    };
+
     const secretKey = c.env.JWT_SECRET;
     if (!secretKey) {
       console.error("JWT_SECRET environment variable is not set");
@@ -68,27 +61,15 @@ export const createUser = async (c: Context) => {
     }
     let token;
     try {
-      token = await sign(payload, secretKey);
+      token = await sign({ id: user.id }, secretKey);
     } catch (error: unknown) {
       console.error({ error: "failed to generate authtoken" });
       return c.json({ message: "failed to generate token" }, 500);
     }
 
-    const cookieOptions = [
-      `token=${token}`,
-      "HttpOnly",
-      "Path=/",
-      `Max-Age=${JWT_EXPIRY_SECONDS}`,
-      "Secure",
-      "SameSite=none",
-      `Expires=${expiryDate}`,
-    ].join("; ");
-
-    c.header("Set-Cookie", cookieOptions);
-
     const { password: _, ...safeUser } = user;
     return c.json(
-      { user: safeUser, message: "user-created-successfully" },
+      { user: safeUser, token, message: "user-created-successfully" },
       201,
     );
   } catch (error: unknown) {
@@ -100,13 +81,6 @@ export const createUser = async (c: Context) => {
 //user sign-in
 export const signIn = async (c: Context) => {
   const prisma = getPrisma(c.env.DATABASE_URL);
-
-  const JWT_EXPIRY_DAYS = 30;
-  const JWT_EXPIRY_SECONDS = 60 * 60 * 24 * JWT_EXPIRY_DAYS;
-  const BCRYPT_ROUNDS = 12;
-  const expiryDate = new Date(
-    Date.now() + JWT_EXPIRY_SECONDS * 1000,
-  ).toUTCString();
 
   const body = await c.req.json();
   const parsed = userSignIn.safeParse(body);
@@ -133,11 +107,7 @@ export const signIn = async (c: Context) => {
       console.error({ error: "wrong password, try again" }, 404);
       return c.json({ message: "wrong password, try again" }, 404);
     }
-    const payload = {
-      sub: userLogin.id,
-      exp: Math.floor(Date.now() / 1000) + JWT_EXPIRY_SECONDS,
-      iat: Math.floor(Date.now() / 1000), // Issued at time
-    };
+
     const secretKey = c.env.JWT_SECRET;
     if (!secretKey) {
       console.error("JWT_SECRET environment variable is not set");
@@ -145,26 +115,17 @@ export const signIn = async (c: Context) => {
     }
     let token;
     try {
-      token = await sign(payload, secretKey);
+      token = await sign({ id: userLogin.id }, secretKey);
     } catch (error: unknown) {
       console.error({ error: "failed to generate authtoken" });
       return c.json({ message: "failed to generate token" }, 500);
     }
 
-    const cookieOptions = [
-      `token=${token}`,
-      "HttpOnly",
-      "Path=/",
-      `Max-Age=${JWT_EXPIRY_SECONDS}`,
-      "Secure",
-      "SameSite=none",
-      `Expires=${expiryDate}`,
-    ].join("; ");
-
-    c.header("Set-Cookie", cookieOptions);
-
     const { password: _, ...safeUserLogin } = userLogin;
-    return c.json({ message: "signed in successfully", safeUserLogin }, 200);
+    return c.json(
+      { message: "signed in successfully", safeUserLogin, token },
+      200,
+    );
   } catch (error) {
     console.error({ error: "failed to login" }, 400);
     return c.json({ message: "failed to login" }, 400);
@@ -229,19 +190,26 @@ export const deleteUser = async (c: Context) => {
 };
 
 export const getUserToken = async (c: Context) => {
-  const cookieHeader = c.req.header("Cookie");
-  const token = cookieHeader?.match(/token=([^;]+)/)?.[1];
+  const authHeader = c.req.header("Authorization");
 
-  if (!token) {
-    throw new HTTPException(401, { message: "Unauthorized: No token found" });
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw new HTTPException(401, {
+      message: "Unauthorized: No token provided",
+    });
   }
 
+  //TOKEN CHECK FOR PROTECTED ROUTES-IF THE USER IS LOGGED IN OR NOT
+
+  const token = authHeader.split(" ")[1];
+  console.log(token);
+
   try {
-    const decoded = (await verify(token, c.env.JWT_SECRET)) as { sub: string }; // `sub` is userId
+    const decoded = (await verify(token, c.env.JWT_SECRET)) as { id: string };
+    console.log(decoded);
 
     const prisma = getPrisma(c.env.DATABASE_URL);
     const user = await prisma.user.findUnique({
-      where: { id: decoded.sub },
+      where: { id: decoded.id },
       select: {
         id: true,
         email: true,

@@ -51,6 +51,8 @@ userHandler.all("/me", async (c: Context) => {
   if (method === "GET") {
     return getUserToken(c);
   }
+
   return c.json({ error: "Method not Allowed" });
 });
+
 export default userHandler;
